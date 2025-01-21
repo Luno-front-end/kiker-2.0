@@ -8,13 +8,9 @@ const botToken = process.env.BOT_TOKEN;
 const channelId = process.env.CHANNEL_ID; // ID каналу або username каналу
 const mongoUri = process.env.URL_CONNECT;
 
-console.log(mongoUri);
-
 const getUsersToKick = async () => {
   try {
     const dbUser = await DB.checkUserDate();
-
-    console.log("collection");
 
     // Отримуємо користувачів, у яких дата співпадає з вчорашньою
     const users = dbUser;
@@ -59,7 +55,6 @@ const kickUser = async (userId) => {
       );
       return;
     }
-    console.log("Користувач видалений:", userId);
 
     // Зняття заборони, щоб дозволити повторне приєднання
     const unbanUrl = `https://api.telegram.org/bot${botToken}/unbanChatMember?chat_id=${channelId}&user_id=${userId}`;
@@ -75,7 +70,6 @@ const kickUser = async (userId) => {
     } else {
       await DB.deletePostDate(userId, getTodayDate());
     }
-    console.log("Користувача розблоковано:", userId);
   } catch (error) {
     console.error("Помилка при обробці користувача:", error);
   }
@@ -83,7 +77,6 @@ const kickUser = async (userId) => {
 
 const main = async () => {
   const users = await getUsersToKick();
-  console.log(users);
 
   if (users.length > 0) {
     if (users && users.length > 0) {

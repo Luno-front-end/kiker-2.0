@@ -39,7 +39,6 @@ const deletePostDate = async (userId, deleteDay) => {
       }
     );
     connectDb().on("error", console.log).on("disconnect", connectDb);
-    console.log(`Користувач з ID ${userId} успішно оновлений.`);
   } catch (err) {
     console.error("Помилка при оновленні користувача:", err);
   }

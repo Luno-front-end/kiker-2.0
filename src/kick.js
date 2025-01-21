@@ -10,7 +10,7 @@ const mongoUri = process.env.URL_CONNECT;
 
 console.log(mongoUri);
 
-async function getUsersToKick() {
+const getUsersToKick = async () => {
   try {
     const dbUser = await DB.checkUserDate();
 
@@ -23,9 +23,9 @@ async function getUsersToKick() {
   } catch (err) {
     console.error("Error retrieving users from database:", err);
   }
-}
+};
 
-async function sendMessageToChannel(message) {
+const sendMessageToChannel = async (message) => {
   const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${channelId}&text=${encodeURIComponent(
     message
   )}`;
@@ -41,11 +41,11 @@ async function sendMessageToChannel(message) {
   } catch (error) {
     console.error("Error sending message:", error);
   }
-}
+};
+
+await sendMessageToChannel("The bot is running successfully!");
 
 const kickUser = async (userId) => {
-  const url = `https://api.telegram.org/bot${botToken}/kickChatMember?chat_id=${channelId}&user_id=${userId}`;
-
   try {
     // Видалення користувача
     const kickUrl = `https://api.telegram.org/bot${botToken}/kickChatMember?chat_id=${channelId}&user_id=${userId}`;
@@ -81,7 +81,7 @@ const kickUser = async (userId) => {
   }
 };
 
-async function main() {
+const main = async () => {
   const users = await getUsersToKick();
   console.log(users);
 
@@ -93,9 +93,8 @@ async function main() {
     } else {
       console.log("No users to kick.");
     }
-    await sendMessageToChannel("The bot is running successfully!");
   }
-}
+};
 
 // Запускаємо основну функцію
 

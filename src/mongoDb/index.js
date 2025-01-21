@@ -33,7 +33,6 @@ const deletePostDate = async (userId, deleteDay) => {
         $set: {
           deleteDate: deleteDay,
           "payment.order_status": "deleted",
-          order_id: null,
           "payment.order_id": null,
         },
       }

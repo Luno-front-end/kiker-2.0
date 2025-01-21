@@ -1,0 +1,22 @@
+{
+  "name": "botkiker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon src/kick.js",
+    "start": "node src/kick.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "moment": "^2.29.4",
+    "mongoose": "^6.8.4",
+    "node-fetch": "^3.3.2",
+    "node-telegram-bot-api": "^0.61.0",
+    "nodemon": "^2.0.20",
+    "tgfancy": "^0.13.0"
+  }
+}

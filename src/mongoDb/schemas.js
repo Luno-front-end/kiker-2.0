@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const subsUsers = new Schema({
+const subsUsersSchema = new Schema({
   first_name: String,
   last_name: String,
   username: String,
@@ -22,4 +22,7 @@ const subsUsers = new Schema({
   },
 });
 
-module.exports = model("subsUsers", subsUsers);
+// module.exports = model("subsUsers", subsUsers);
+const subsUsers = model("subsUsers", subsUsersSchema);
+
+export default subsUsers;

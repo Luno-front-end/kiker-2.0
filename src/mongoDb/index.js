@@ -1,10 +1,9 @@
-const mongoose = require("mongoose");
-const moment = require("moment");
+import dotenv from "dotenv";
+import moment from "moment";
+import mongoose from "mongoose";
+import SubsUsersSchema from "./schemas.js";
 
-const SubsUsersSchema = require("./schemas");
-// "mongodb://localhost:27017",
-
-require("dotenv").config();
+dotenv.config();
 const connectDb = () => {
   try {
     mongoose.connect(
@@ -25,7 +24,7 @@ const connectDb = () => {
   return mongoose.connection;
 };
 
-const deletePostDate = async (userId, deleteDay) => {
+export const deletePostDate = async (userId, deleteDay) => {
   try {
     await SubsUsersSchema.updateOne(
       { user_id: userId },
@@ -43,7 +42,7 @@ const deletePostDate = async (userId, deleteDay) => {
   }
 };
 
-const checkUserDate = async () => {
+export const checkUserDate = async () => {
   try {
     connectDb();
 
@@ -63,7 +62,7 @@ const checkUserDate = async () => {
   }
 };
 
-module.exports = {
+export default {
   deletePostDate,
   checkUserDate,
 };

@@ -1,8 +1,8 @@
-const { getTodayDate } = require("./helper");
+import { getTodayDate } from "./helper.js";
+import DB from "./mongoDb/index.js";
 
-const DB = require("./mongoDb/index");
-
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const botToken = process.env.BOT_TOKEN;
 const channelId = process.env.CHANNEL_ID; // ID каналу або username каналу

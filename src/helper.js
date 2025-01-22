@@ -1,6 +1,6 @@
-const moment = require("moment");
+import moment from "moment";
 
-const dateSubs = () => {
+export const dateSubs = () => {
   const correntDate = moment().format("L");
 
   const monthOne = correntDate.slice(0, 2);
@@ -9,7 +9,7 @@ const dateSubs = () => {
   return `${dateOne}/${monthOne}/${yearhOne}`;
 };
 
-const nextDay = () => {
+export const nextDay = () => {
   const date = new Date();
   const year = date.getFullYear();
 
@@ -38,7 +38,7 @@ const nextDay = () => {
   return `${day()}/${month()}/${year}`;
 };
 
-const getTodayDate = () => {
+export const getTodayDate = () => {
   const today = new Date();
   const day = String(today.getDate()).padStart(2, "0"); // Завжди двозначний формат для дня
   const month = String(today.getMonth() + 1).padStart(2, "0"); // Місяці починаються з 0, тому додаємо 1
@@ -47,4 +47,4 @@ const getTodayDate = () => {
   return `${day}/${month}/${year}`;
 };
 
-module.exports = { dateSubs, nextDay, getTodayDate };
+// module.exports = { dateSubs, nextDay, getTodayDate };

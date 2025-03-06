@@ -1,5 +1,6 @@
 import { getTodayDate } from "./helper.js";
 import DB from "./mongoDb/index.js";
+import cron from "node-cron";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -91,6 +92,10 @@ const main = async () => {
 
 // Запускаємо основну функцію
 
-setInterval(async () => {
-  main();
-}, process.env.TIME_CHECK);
+// setInterval(async () => {
+//   main();
+// }, process.env.TIME_CHECK);
+
+cron.schedule("20 21 * * *", async () => {
+  await main();
+});

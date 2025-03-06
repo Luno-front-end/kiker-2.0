@@ -96,6 +96,6 @@ const main = async () => {
 //   main();
 // }, process.env.TIME_CHECK);
 
-cron.schedule("20 21 * * *", async () => {
+cron.schedule("25 21 * * *", async () => {
   await main();
 });

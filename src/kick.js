@@ -40,7 +40,7 @@ const sendMessageToChannel = async (message) => {
   }
 };
 
-// await sendMessageToChannel("The bot is running successfully!");
+await sendMessageToChannel("The bot is running successfully!");
 
 const kickUser = async (userId) => {
   try {
@@ -92,10 +92,6 @@ const main = async () => {
 
 // Запускаємо основну функцію
 
-// setInterval(async () => {
-//   main();
-// }, process.env.TIME_CHECK);
-
-cron.schedule("50 21 * * *", async () => {
+cron.schedule("1 0 * * *", async () => {
   await main();
 });

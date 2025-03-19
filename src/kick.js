@@ -45,19 +45,6 @@ await sendMessageToChannel("The bot is running successfully!");
 
 const kickUser = async (userId) => {
   try {
-    // Видалення користувача
-    // const kickUrl = `https://api.telegram.org/bot${botToken}/kickChatMember?chat_id=${channelId}&user_id=${userId}`;
-    // const kickResponse = await fetch(kickUrl);
-    // const kickResult = await kickResponse.json();
-
-    // if (!kickResult.ok) {
-    //   console.error(
-    //     "Помилка при видаленні користувача:",
-    //     kickResult.description
-    //   );
-    //   return;
-    // }
-
     const arrIdChanels = [channelId, groupId];
 
     const kickUserGroupAndChannel = async (currentIdChannel) => {
@@ -111,10 +98,6 @@ const main = async () => {
 
 // Запускаємо основну функцію
 
-setInterval(async () => {
+cron.schedule("1 0 * * *", async () => {
   await main();
-}, 1000);
-
-// cron.schedule("1 0 * * *", async () => {
-//   await main();
-// });
+});

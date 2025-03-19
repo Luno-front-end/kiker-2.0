@@ -46,16 +46,20 @@ export const checkUserDate = async () => {
   try {
     connectDb();
 
-    // Отримати вчорашню дату у форматі "DD/MM/YYYY"
-    const yesterday = moment().subtract(1, "days").format("DD/MM/YYYY");
+    // Отримуємо вчорашню дату у форматі "YYYY-MM-DD"
+    const yesterday = moment().subtract(1, "days").format("YYYY-MM-DD");
 
-    // Шукаємо дати, які менші або дорівнюють вчорашній
-    const usersWithYesterdayDate = await SubsUsersSchema.find({
-      "payment.dateEnd": { $lte: yesterday }, // Дата менша або дорівнює вчорашній
-      deleteDate: null, // deleteDate має бути null
+    console.log("Вчорашня дата:", yesterday);
+
+    // Шукаємо користувачів, у яких `dateEnd` <= вчорашньої дати
+    const usersWithExpiredDate = await SubsUsersSchema.find({
+      "payment.dateEnd": { $lte: yesterday, $ne: null }, // $ne: null — виключає пусті значення
+      deleteDate: null,
     }).lean();
 
-    return usersWithYesterdayDate;
+    console.log("Знайдені користувачі:", usersWithExpiredDate);
+
+    return usersWithExpiredDate;
   } catch (error) {
     console.error("Помилка при пошуку користувачів:", error);
     return [];

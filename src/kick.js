@@ -6,7 +6,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const botToken = process.env.BOT_TOKEN;
-const channelId = process.env.CHANNEL_ID; // ID каналу або username каналу
+const channelId = process.env.CHANNEL_ID;
+const groupId = process.env.GROUP_ID;
 const mongoUri = process.env.URL_CONNECT;
 
 const getUsersToKick = async () => {
@@ -45,17 +46,35 @@ await sendMessageToChannel("The bot is running successfully!");
 const kickUser = async (userId) => {
   try {
     // Видалення користувача
-    const kickUrl = `https://api.telegram.org/bot${botToken}/kickChatMember?chat_id=${channelId}&user_id=${userId}`;
-    const kickResponse = await fetch(kickUrl);
-    const kickResult = await kickResponse.json();
+    // const kickUrl = `https://api.telegram.org/bot${botToken}/kickChatMember?chat_id=${channelId}&user_id=${userId}`;
+    // const kickResponse = await fetch(kickUrl);
+    // const kickResult = await kickResponse.json();
 
-    if (!kickResult.ok) {
-      console.error(
-        "Помилка при видаленні користувача:",
-        kickResult.description
-      );
-      return;
-    }
+    // if (!kickResult.ok) {
+    //   console.error(
+    //     "Помилка при видаленні користувача:",
+    //     kickResult.description
+    //   );
+    //   return;
+    // }
+
+    const arrIdChanels = [channelId, groupId];
+
+    const kickUserGroupAndChannel = async (currentIdChannel) => {
+      const kickUrl = `https://api.telegram.org/bot${botToken}/kickChatMember?chat_id=${currentIdChannel}&user_id=${userId}`;
+      const kickResponse = await fetch(kickUrl);
+      const kickResult = await kickResponse.json();
+
+      if (!kickResult.ok) {
+        console.error(
+          "Помилка при видаленні користувача:",
+          kickResult.description
+        );
+        return;
+      }
+    };
+
+    arrIdChanels.forEach((id) => kickUserGroupAndChannel(id));
 
     // Зняття заборони, щоб дозволити повторне приєднання
     const unbanUrl = `https://api.telegram.org/bot${botToken}/unbanChatMember?chat_id=${channelId}&user_id=${userId}`;
@@ -92,6 +111,10 @@ const main = async () => {
 
 // Запускаємо основну функцію
 
-cron.schedule("1 0 * * *", async () => {
+setInterval(async () => {
   await main();
-});
+}, 1000);
+
+// cron.schedule("1 0 * * *", async () => {
+//   await main();
+// });
